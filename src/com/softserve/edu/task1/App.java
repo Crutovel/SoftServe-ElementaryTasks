@@ -7,10 +7,8 @@ public class App {
 		int w=0,h=0;
 		
 		try {
-			//w = Integer.valueOf(args[0]);
-			//h = Integer.valueOf(args[1]);
-			w = Integer.valueOf("443");
-			h = Integer.valueOf("553");
+			w = Integer.valueOf(args[0]);
+			h = Integer.valueOf(args[1]);
 		} catch (NumberFormatException e) {
 			System.out.println("Wrong number format, need Integer value");
 			System.exit(0);
