@@ -29,7 +29,7 @@ public class App {
 			System.exit(0);
 		}
 		if (result <= 0) {
-			System.out.println("Parameters must be greater than zero");
+			System.out.println("Parameters must be greater than zero and not greater than " + Integer.MAX_VALUE);
 			System.exit(0);
 		}
 		return result;
