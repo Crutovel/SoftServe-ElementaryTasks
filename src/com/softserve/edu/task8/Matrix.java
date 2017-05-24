@@ -6,7 +6,6 @@ public class Matrix {
 
 	public static final int ROWS = 2;
 	public static final int COLS = 2;
-
 	public static Matrix one;
 
 	static {
@@ -65,7 +64,6 @@ public class Matrix {
 		if (exp % 2 == 1) {
 			return one.multiply(pow(exp - 1));
 		}
-
 		return pow(2).pow(exp / 2);
 	}
 
