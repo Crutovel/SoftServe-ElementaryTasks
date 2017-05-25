@@ -5,11 +5,11 @@ public class Triangle {
 	private double sides[];
 
 	private double area;
-	
-	public double getArea(){
+
+	public double getArea() {
 		return area;
 	}
-	
+
 	public Triangle() {
 		name = "null";
 		sides = new double[3];
@@ -55,7 +55,9 @@ public class Triangle {
 			}
 			str = str.substring(index + 1, str.length());
 		}
-		if (commaChecker != 4 || trSides[0] <= 0.0 || trSides[1] <= 0.0 || trSides[1] <= 0.0) {
+		if (commaChecker != 4 || trSides[0] <= 0.0 || trSides[1] <= 0.0 || trSides[2] <= 0.0
+				|| trSides[0] + trSides[1] > trSides[2] || trSides[2] + trSides[1] > trSides[0]
+				|| trSides[0] + trSides[2] > trSides[1]) {
 			throw new IllegalArgumentException();
 		}
 		return new Triangle(name, trSides[0], trSides[1], trSides[2]);
