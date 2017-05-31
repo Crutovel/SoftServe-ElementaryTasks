@@ -14,7 +14,7 @@ public class App {
 
 		switch (args.length) {
 		case 2: {
-			int occurences = 0;
+			int occurences = -1;
 			File file = new File(args[0]);
 			Scanner scanner;
 			try {
