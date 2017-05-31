@@ -15,12 +15,10 @@ public class App {
 			}
 			if (w <= 0 || h <= 0) {
 				System.out.println("Parameters must be greater than zero");
-				System.exit(0);
 			} else {
 				int n = (w * 2 * h) + (h / 2) - 1;
 				if (n < 0) {
 					System.out.println("Parameters too big");
-					System.exit(0);
 				} else {
 					System.out.print(makeChessBoard(w, h, n));
 				}
