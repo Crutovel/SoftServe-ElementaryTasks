@@ -18,6 +18,9 @@ public class Triangle {
 	public Triangle(String name, double fSide, double sSide, double tSide) {
 		this();
 		this.name = name;
+		if (!triangleSidesValidator(fSide, sSide, tSide)) {
+			throw new IllegalArgumentException();
+		}
 		sides[0] = fSide;
 		sides[1] = sSide;
 		sides[2] = tSide;
@@ -55,12 +58,17 @@ public class Triangle {
 			}
 			str = str.substring(index + 1, str.length());
 		}
-		if (commaChecker != 4 || trSides[0] <= 0.0 || trSides[1] <= 0.0 || trSides[2] <= 0.0
-				|| trSides[0] + trSides[1] > trSides[2] || trSides[2] + trSides[1] > trSides[0]
-				|| trSides[0] + trSides[2] > trSides[1]) {
+		if (commaChecker != 4) {
 			throw new IllegalArgumentException();
 		}
 		return new Triangle(name, trSides[0], trSides[1], trSides[2]);
+	}
+
+	private static boolean triangleSidesValidator(double a, double b, double c) {
+		if (a <= 0.0 || b <= 0.0 || c <= 0.0 || a + b > c || c + b > a || a + c > b) {
+			return false;
+		}
+		return true;
 	}
 
 	private static String deleteSymbols(String str, String symb) {
