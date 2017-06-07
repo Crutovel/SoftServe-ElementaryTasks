@@ -4,70 +4,50 @@ import java.util.Scanner;
 
 public class App {
 
-	public static double parseDouble(String str) {
-		str = str.replace(",", ".");
-		return Double.valueOf(str);
-	}
-
-	public static void main(String[] args) {
-		double a = 0, b = 0, c = 0, d = 0;
-		String confirm = "";
-		String number = "";
-		Scanner scanner = new Scanner(System.in);
-
-		for (;;) {
-
-			try {
-				System.out.println("Enter a: ");
-				number = scanner.next();
-				a = parseDouble(number);
-
-				System.out.println("Enter b: ");
-				number = scanner.next();
-				b = parseDouble(number);
-
-				System.out.println("Enter c: ");
-				number = scanner.next();
-				c = parseDouble(number);
-
-				System.out.println("Enter d: ");
-				number = scanner.next();
-				d = parseDouble(number);
-			} catch (NumberFormatException e) {
-				scanner.close();
-				System.out.println("Wrong number format");
-				System.exit(5);
-			}
-
-			if (a <= 0 || b <= 0 || c <= 0 || d <= 0) {
-				scanner.close();
-				System.out.println("Parameters must be greater than zero");
-
-			} else {
-
-				if ((a < c && b < d) || (a < d && b < c) || (c < a && d < b) || (c < b && d < a)) {
-					System.out.println("Possible");
-				} else {
-					System.out.println("Impossible");
-				}
-
-				System.out.println("Do you want to continue?");
-				confirm = scanner.next();
-				confirm = confirm.toLowerCase();
-				switch (confirm) {
-				case "y": {
-					break;
-				}
-				case "yes": {
-					break;
-				}
-				default: {
-					scanner.close();
-					System.out.println("bb");
-				}
-				}
-			}
-		}
-	}
-
+    public static void main(String[] args) {
+        String confirm = "";
+        String width = "";
+        String height = "";
+        boolean exit = false;
+        Scanner scanner = new Scanner(System.in);
+        while (!exit) {
+            try {
+                System.out.println("Enter a: ");
+                width = scanner.next();
+                System.out.println("Enter b: ");
+                height = scanner.next();
+                Envelope first = new Envelope(width, height);
+                System.out.println("Enter c: ");
+                width = scanner.next();
+                System.out.println("Enter d: ");
+                height = scanner.next();
+                Envelope second = new Envelope(width, height);
+                if (first.compare(second) != 0) {
+                    System.out.println("Possible");
+                } else {
+                    System.out.println("Impossible");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong number format");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Numbers must be greater than zero");
+            }
+            System.out.println("Do you want to continue?");
+            confirm = scanner.next();
+            confirm = confirm.toLowerCase();
+            switch (confirm) {
+                case "y": {
+                    break;
+                }
+                case "yes": {
+                    break;
+                }
+                default: {
+                    System.out.println("bb");
+                    exit = true;
+                    scanner.close();
+                }
+            }
+        }
+    }
 }
