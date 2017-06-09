@@ -1,5 +1,6 @@
 package com.softserve.edu.task4;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -10,7 +11,7 @@ public class FileStrReplacer extends FileParser {
     private static final String CHARSET = "cp1251";
     private Path filePath;
 
-    public FileStrReplacer(String path) throws IOException {
+    public FileStrReplacer(String path) throws FileNotFoundException, IOException {
         super(path);
         filePath = Paths.get(path);
     }
