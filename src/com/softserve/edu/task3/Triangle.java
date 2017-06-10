@@ -1,6 +1,11 @@
 package com.softserve.edu.task3;
 
+import java.util.Scanner;
+
 public class Triangle {
+
+    private static final double PRECISION = 0.000001;
+
     private String name;
     private double sides[];
 
@@ -19,7 +24,7 @@ public class Triangle {
         this();
         this.name = name;
         if (!triangleSidesValidator(fSide, sSide, tSide)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Impossible sides");
         }
         sides[0] = fSide;
         sides[1] = sSide;
@@ -29,43 +34,48 @@ public class Triangle {
 
     @Override
     public String toString() {
-        return "[Triangle " + name + "]: " + String.format("%.2f", area) + " cm";
+        return "[Triangle " + name + "]: " + String.format("%.2f", area) + " cm2";
     }
 
     public static Triangle valueOf(String input) {
+        if (input == "") {
+            throw new IllegalArgumentException("Empty String");
+        }
         String name = "";
         double[] trSides = new double[3];
         String str = new String(input.toLowerCase());
         str = deleteSymbols(str, " ");
         str = deleteSymbols(str, "\t");
-        int index = 0;
-        int commaChecker;
-        for (commaChecker = 0; index != -1; commaChecker++) {
-            index = str.indexOf(",");
-            if (commaChecker == 0) {
-                if (index == 0) {
-                    throw new IllegalArgumentException();
-                } else {
-                    name = str.substring(0, index);
-                }
-            }
-            if (commaChecker == 1) {
-                trSides[0] = Double.valueOf(str.substring(0, index));
-            }
-            if (commaChecker == 2) {
-                trSides[1] = Double.valueOf(str.substring(0, index));
-                trSides[2] = Double.valueOf(str.substring(index + 1, str.length()));
-            }
-            str = str.substring(index + 1, str.length());
+
+        String[] args = new String[4];
+
+        Scanner scanner = new Scanner(input);
+
+        scanner.useDelimiter(",");
+
+        int count = 0;
+        while (scanner.hasNext()) {
+            args[count] = scanner.next();
+            count++;
         }
-        if (commaChecker != 4) {
-            throw new IllegalArgumentException();
+        scanner.close();
+        if (count != 4) {
+            throw new IllegalArgumentException("Wrong Format");
         }
+
+        name = args[0];
+        trSides[0] = Double.valueOf(args[1]);
+        trSides[1] = Double.valueOf(args[2]);
+        trSides[2] = Double.valueOf(args[3]);
+
         return new Triangle(name, trSides[0], trSides[1], trSides[2]);
     }
 
     private static boolean triangleSidesValidator(double a, double b, double c) {
-        if (a <= 0.0 || b <= 0.0 || c <= 0.0 || a + b < c || c + b < a || a + c < b) {
+        if (a <= 0.0 || b <= 0.0 || c <= 0.0) {
+            return false;
+        }
+        if (compareDoubles(c, (a + b)) != -1 || compareDoubles(a, c + b) != -1 || compareDoubles(b, a + c) != -1) {
             return false;
         }
         return true;
@@ -88,5 +98,14 @@ public class Triangle {
     private double calculateArea() {
         double p = (sides[0] + sides[1] + sides[2]) / 2;
         return Math.sqrt(p * (p - sides[0]) * (p - sides[1]) * (p - sides[2]));
+    }
+
+    private static int compareDoubles(double a, double b) {
+        double delta = a - b;
+        if (delta > PRECISION) {
+            return 1;
+        } else {
+            return delta < -PRECISION ? -1 : 0;
+        }
     }
 }
