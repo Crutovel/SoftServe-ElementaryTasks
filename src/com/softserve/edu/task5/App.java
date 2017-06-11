@@ -3,9 +3,6 @@ package com.softserve.edu.task5;
 public class App {
 
     public static void main(String[] args) {
-      //  BigNumber num = new BigNumber();
-     //   num = new BigNumber("");
-     //   System.out.println(num.toString());
         if (args.length == 1) {
             BigNumber num = new BigNumber();
             try {
